@@ -1,0 +1,4 @@
+<select #element (change)="onSelected(element.value)">
+  <option [value]="" selected>-</option>
+  <option *ngFor="let item of list" [value]="item">{{item}}</option>
+</select>
