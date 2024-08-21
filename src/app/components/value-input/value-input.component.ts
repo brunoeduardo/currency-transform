@@ -1,4 +1,4 @@
-import { Component, model, ModelSignal } from '@angular/core';
+import { Component, EventEmitter, model, ModelSignal, Output } from '@angular/core';
 
 @Component({
   selector: 'app-value-input',
@@ -8,13 +8,12 @@ import { Component, model, ModelSignal } from '@angular/core';
   styleUrl: './value-input.component.scss'
 })
 export class ValueInputComponent {
-  public inputType: string = 'number'
-  public valueInput: ModelSignal<string> = model.required<string>();
+  @Output() valueInput = new EventEmitter<string>();
 
+  public inputType: string = 'number'
 
   onChange(event: Event) {
     const newValue = (event.target as HTMLInputElement).value;
-    console.log('input =>', newValue)
-    this.valueInput.update(() => newValue)
+    this.valueInput.emit(newValue)
   }
 }

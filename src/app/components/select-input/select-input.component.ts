@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, model, ModelSignal } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-select-input',
@@ -9,6 +9,8 @@ import { Component, model, ModelSignal } from '@angular/core';
   styleUrl: './select-input.component.scss'
 })
 export class SelectInputComponent {
+  @Output() valueSelected = new EventEmitter<string>();
+
   // get this list from outside
   public list: Array<string> = [
     'USD',
@@ -16,10 +18,8 @@ export class SelectInputComponent {
     'GBR',
     'EUR'
   ]
-  public valueSelected: ModelSignal<string> = model.required<string>();
 
   onSelected(value: string) {
-    console.log(value)
-    this.valueSelected.update(() => value)
+    this.valueSelected.emit(value)
   }
 }

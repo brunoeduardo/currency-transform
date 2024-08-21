@@ -1,17 +1,13 @@
 <div class="main">
-  <h1 class="title">Currency Changer</h1>
+  <h1 class="title">{{title}}</h1>
   <section class="changer-container">
     <div class="changer-content">
-      <app-value-input class="changer-select-input" [(valueInput)]="valueFieldFrom"></app-value-input>
-      <app-select-input [(valueSelected)]="currencyFieldFrom"></app-select-input>
+      <app-value-input class="changer-select-input" (valueInput)="updateValuesFrom($event)"></app-value-input>
+      <app-select-input (valueSelected)="updateValuesTo($event)"></app-select-input>
     </div>
     <div class="equal-signal"> == </div>
     <div></div>
   </section>
 </div>
-
-*** {{currencyFieldFrom}} ***
-<br>
-*** {{valueFieldFrom}} ***
 
 <router-outlet />

@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal, Signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SelectInputComponent } from "./components/select-input/select-input.component";
 import { ValueInputComponent } from "./components/value-input/value-input.component";
@@ -11,7 +11,16 @@ import { ValueInputComponent } from "./components/value-input/value-input.compon
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  public title: string = 'currency-transform';
-  public currencyFieldFrom: string = '';
-  public valueFieldFrom: string = '';
+  public title: string = 'Currency Changer';
+
+  updateValuesFrom(event: string) {
+    console.log('updateValuesFrom =>', event)
+  }
+
+  updateValuesTo(event: string) {
+    console.log('updateValuesTo =>', event)
+  }
+
+
+
 }
