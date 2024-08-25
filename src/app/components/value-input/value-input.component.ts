@@ -1,4 +1,5 @@
-import { Component, EventEmitter, model, ModelSignal, Output } from '@angular/core';
+import { Component, EventEmitter, Input, model, ModelSignal, Output } from '@angular/core';
+import { DataStructure } from '../../model/data-structure';
 
 @Component({
   selector: 'app-value-input',
@@ -8,12 +9,16 @@ import { Component, EventEmitter, model, ModelSignal, Output } from '@angular/co
   styleUrl: './value-input.component.scss'
 })
 export class ValueInputComponent {
-  @Output() valueInput = new EventEmitter<string>();
+  @Output() valueInput = new EventEmitter<DataStructure>();
+  @Input() nameField: string = '';
 
   public inputType: string = 'number'
 
   onChange(event: Event) {
-    const newValue = (event.target as HTMLInputElement).value;
-    this.valueInput.emit(newValue)
+    const data = {
+      name: this.nameField,
+      value: (event.target as HTMLInputElement).value
+    }
+    this.valueInput.emit(data)
   }
 }

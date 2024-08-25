@@ -1,5 +1,6 @@
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DataStructure } from '../../model/data-structure';
 
 @Component({
   selector: 'app-select-input',
@@ -9,7 +10,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './select-input.component.scss'
 })
 export class SelectInputComponent {
-  @Output() valueSelected = new EventEmitter<string>();
+  @Output() valueSelected = new EventEmitter<DataStructure>();
+  @Input() nameField: string = '';
 
   // get this list from outside
   public list: Array<string> = [
@@ -20,6 +22,10 @@ export class SelectInputComponent {
   ]
 
   onSelected(value: string) {
-    this.valueSelected.emit(value)
+    const data = {
+      name: this.nameField,
+      value
+    }
+    this.valueSelected.emit(data)
   }
 }

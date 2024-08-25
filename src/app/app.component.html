@@ -2,12 +2,18 @@
   <h1 class="title">{{title}}</h1>
   <section class="changer-container">
     <div class="changer-content">
-      <app-value-input class="changer-select-input" (valueInput)="updateValuesFrom($event)"></app-value-input>
-      <app-select-input (valueSelected)="updateValuesTo($event)"></app-select-input>
+      <app-value-input class="changer-select-input" nameField="valueFrom"
+        (valueInput)="updateValues($event)"></app-value-input>
+      <app-select-input (valueSelected)="updateValues($event)" nameField="currencyFrom"></app-select-input>
     </div>
     <div class="equal-signal"> == </div>
-    <div></div>
+    <div class="changer-content">
+      <app-value-input class="changer-select-input" nameField="valueTo"
+        (valueInput)="updateValues($event)"></app-value-input>
+      <app-select-input (valueSelected)="updateValues($event)" nameField="currencyTo"></app-select-input>
+    </div>
   </section>
+
 </div>
 
 <router-outlet />
