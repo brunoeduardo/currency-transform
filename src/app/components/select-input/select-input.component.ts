@@ -17,7 +17,6 @@ export class SelectInputComponent {
   public list: Array<string> = [
     'USD',
     'BRL',
-    'GBR',
     'EUR'
   ]
 
