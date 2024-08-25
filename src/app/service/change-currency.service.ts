@@ -17,25 +17,23 @@ export class ChangeCurrencyService {
     'EURUSD': { typeStrong: false, value: 1.1176 }
   }
   convertValue(valueObject: DataUpdate) {
-    const getPrice = `${valueObject['currencyFrom']}${valueObject['currencyTo']}`
+    const getPrice = valueObject.fieldUpdate.includes('To') ?
+      `${valueObject['currencyTo']}${valueObject['currencyFrom']}` :
+      `${valueObject['currencyFrom']}${valueObject['currencyTo']}`;
+
+    const getValue = valueObject.fieldUpdate.includes('To') ? valueObject['valueTo'] : valueObject['valueFrom'];
     const typeCalculation: valueQuote = this.currencyPrice[getPrice]
-    if (typeCalculation.typeStrong) {
-      const result = this.multiply(Number(valueObject['valueFrom']), typeCalculation.value)
-      console.log('result', result, valueObject.fieldUpdate)
-    } else {
-      const result2 = this.multiply(Number(valueObject['valueFrom']), typeCalculation.value)
-      console.log('result', result2, valueObject.fieldUpdate)
-    }
+    const result = this.multiply(Number(getValue), typeCalculation.value)
+    console.log('result multiply', result, valueObject.fieldUpdate)
+
+    // update fields
+
 
 
   }
 
   multiply(value: number, price: number) {
     return (value * price)
-  }
-
-  divide(value: number, price: number) {
-    return (value / price)
   }
 
 }
