@@ -12,6 +12,7 @@ import { DataStructure } from '../../model/data-structure';
 export class SelectInputComponent {
   @Output() valueSelected = new EventEmitter<DataStructure>();
   @Input() nameField: string = '';
+  @Input() value: string = '';
 
   // get this list from outside
   public list: Array<string> = [

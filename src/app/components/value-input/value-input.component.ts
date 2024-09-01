@@ -11,7 +11,7 @@ import { DataStructure } from '../../model/data-structure';
 export class ValueInputComponent {
   @Output() valueInput = new EventEmitter<DataStructure>();
   @Input() nameField: string = '';
-
+  @Input() value: string | number = 0;
   public inputType: string = 'number'
 
   onChange(event: Event) {
