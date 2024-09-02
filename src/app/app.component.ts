@@ -25,9 +25,8 @@ export class AppComponent {
   }
 
   async updateValues(event: DataStructure) {
-    this.dataObject[event.name] = event.value
+    this.dataObject[event.name] = event.value;
     this.dataObject.fieldUpdate = event.name;
-    const result = await this.changeCurrencyService.convertValue(this.dataObject)
-    console.log('Result ==> ', result)
+    this.changeCurrencyService.convertValue(this.dataObject);
   }
 }
