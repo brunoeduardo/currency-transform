@@ -14,8 +14,8 @@ const multiply = (value: number, price: number): number => {
     return (value * price)
 }
 
-const CalculateCurrency = (valueObject: DataUpdate): DataUpdate | null => {
-    if (!valueObject['currencyTo'] || !valueObject['currencyFrom']) return null;
+const CalculateCurrency = (valueObject: DataUpdate): DataUpdate => {
+    if (!valueObject['currencyTo'] || !valueObject['currencyFrom']) return valueObject;
 
     const isValueToCurrencyFrom = (valueObject.fieldUpdate === 'valueTo' || valueObject.fieldUpdate === 'currencyFrom')
     const getPrice = isValueToCurrencyFrom ?
