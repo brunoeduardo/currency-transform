@@ -2,18 +2,25 @@ import React, { useState } from 'react';
 import './App.css';
 import SelectInput from './components/select-input';
 import ValueInput from './components/value-input';
+import CalculateCurrency from './service/calculate-currency';
+import { DataUpdate } from './model/data-update';
 
 function App() {
   const title: string = 'Currency Changer';
-  const [valueFrom, setValueFrom] = useState('');
-  const [valueTo, setValueTo] = useState('');
-  const [currencyFrom, setCurrencyFrom] = useState('');
-  const [currencyTo, setCurrencyTo] = useState('');
+  const [values, setValues] = useState<DataUpdate>({
+    currencyTo: '',
+    valueTo: 0,
+    currencyFrom: '',
+    valueFrom: 0,
+    fieldUpdate: ''
+  })
 
-
-  const updateValues = (value: string, nameField: string) => {
-    console.log("event => ", value, nameField)
-    setValueFrom(value)
+  const updateValues = async (value: string, nameField: string) => {
+    setValues({ ...values, nameField: value, fieldUpdate: nameField })
+    values[nameField] = value;
+    values.fieldUpdate = nameField;
+    const result: DataUpdate = await CalculateCurrency(values);
+    setValues(result);
   }
 
   return (
@@ -21,21 +28,15 @@ function App() {
       <h1 className="title">{title}</h1>
       <section className="changer-container">
         <div className="changer-content">
-          <SelectInput value={currencyFrom} onChange={(value: string) => updateValues(value, "currencyFrom")}></SelectInput>
-          <ValueInput value={valueFrom} onChange={(value: string) => updateValues(value, "valueFrom")}></ValueInput>
+          <SelectInput value={values.currencyFrom} onChange={(value: string) => updateValues(value, "currencyFrom")}></SelectInput>
+          <ValueInput value={values.valueFrom} onChange={(value: string) => updateValues(value, "valueFrom")}></ValueInput>
         </div >
         <div className="equal-signal"> == </div>
         <div className="changer-content">
-          <SelectInput value={currencyTo} onChange={(value: string) => updateValues(value, "currencyTo")}></SelectInput>
-          <ValueInput value={valueTo} onChange={(value: string) => updateValues(value, "valueTo")}></ValueInput>
+          <SelectInput value={values.currencyTo} onChange={(value: string) => updateValues(value, "currencyTo")}></SelectInput>
+          <ValueInput value={values.valueTo} onChange={(value: string) => updateValues(value, "valueTo")}></ValueInput>
         </div >
       </section >
-
-      <div>
-        <h1>TEST</h1>
-        {currencyFrom} <br></br>
-        {currencyTo}
-      </div>
     </div >
 
   );
