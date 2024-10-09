@@ -1,18 +1,13 @@
 const SelectInput = (
-    { value, onChange }:
-        { value: string, onChange: any }
+    { list, value, onChange }:
+        { list: Array<string>, value: string, onChange: any }
 ) => {
-    const list: Array<string> = [
-        'USD',
-        'BRL',
-        'EUR'
-    ]
 
     return (
         <select value={value} onChange={event => onChange(event.target.value)}>
-            <option value="" selected > - </option>
+            <option value="" > - </option>
             {
-                list.map((e: string) => <option value={e} > {e}</option>)
+                list.map((e: string) => <option key={e} value={e} > {e}</option>)
             }
         </select>
     )

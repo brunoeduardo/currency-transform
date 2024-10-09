@@ -1,4 +1,5 @@
 export interface DataUpdate {
-    [key: string]: any, //string | number,
-    fieldUpdate: string
+    [key: string]: string,
+    fieldUpdate: string,
+    changeValue: string
 }
