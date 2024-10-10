@@ -1,5 +1,8 @@
 export interface DataUpdate {
-    [key: string]: string,
+    currencyFrom: string,
+    currencyTo: string,
+    valueFrom: number,
+    valueTo: number,
     fieldUpdate: string,
-    changeValue: string
+    changeValue: number
 }

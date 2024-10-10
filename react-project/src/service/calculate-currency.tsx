@@ -14,22 +14,21 @@ const multiply = (value: number, price: number): number => {
     return (value * price)
 }
 
-const CalculateCurrency = (valueObject: DataUpdate): { value: string, fieldName: string } | null => {
+const CalculateCurrency = (valueObject: DataUpdate): { value: number, fieldName: string } | null => {
     if (
-        (!valueObject['currencyTo'] || !valueObject['currencyFrom']) ||
-        (!valueObject['valueTo'] && !valueObject['valueFrom'])
+        (!valueObject.currencyTo || !valueObject.currencyFrom) ||
+        (!valueObject.valueTo && !valueObject.valueFrom) ||
+        (valueObject.currencyTo === valueObject.currencyFrom)
     ) return null;
 
     const isValueToCurrencyFrom = (valueObject.fieldUpdate === 'valueTo' || valueObject.fieldUpdate === 'currencyFrom')
     const getPrice = isValueToCurrencyFrom ?
-        `${valueObject['currencyTo']}${valueObject['currencyFrom']}` :
-        `${valueObject['currencyFrom']}${valueObject['currencyTo']}`;
+        `${valueObject.currencyTo}${valueObject.currencyFrom}` :
+        `${valueObject.currencyFrom}${valueObject.currencyTo}`;
 
-    const getValue = isValueToCurrencyFrom ? valueObject['valueTo'] : valueObject['valueFrom'];
+    const getValue = isValueToCurrencyFrom ? valueObject.valueTo : valueObject.valueFrom;
     const typeCalculation: valueQuote = currencyPrice[getPrice];
-    const result = multiply(Number(getValue), typeCalculation.value).toString();
-    // isValueToCurrencyFrom ? valueObject['valueFrom'] = result : valueObject['valueTo'] = result
-    // return valueObject;
+    const result = multiply(Number(getValue), typeCalculation.value);
 
     return { value: result, fieldName: isValueToCurrencyFrom ? 'valueFrom' : 'valueTo' }
 }

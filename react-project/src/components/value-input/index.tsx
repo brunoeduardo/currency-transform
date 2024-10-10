@@ -1,9 +1,9 @@
 const ValueInput = (
-    { value, onChange }:
-        { value: string, onChange: any }
+    { value, inputType = 'text', onChange }:
+        { value: number, inputType: string, onChange: any }
 ) => {
     return (
-        <input type="text" value={value} onChange={event => onChange(event.currentTarget.value)} />
+        <input type={inputType} value={value} onChange={event => onChange(event.currentTarget.value)} />
     )
 
 }

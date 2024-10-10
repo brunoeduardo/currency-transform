@@ -15,21 +15,23 @@ function App() {
 
   const [values, setValues] = useState<DataUpdate>({
     currencyTo: '',
-    valueTo: '',
+    valueTo: 0,
     currencyFrom: '',
-    valueFrom: '',
+    valueFrom: 0,
     fieldUpdate: '',
-    changeValue: ''
+    changeValue: 0
   })
 
   const updateValues = async (value: string, nameField: string) => {
-    setValues(prev => ({ ...prev, [nameField]: value, fieldUpdate: nameField, changeValue: Math.random().toString() }))
+    setValues(prev => ({ ...prev, [nameField]: value, fieldUpdate: nameField, changeValue: Math.random() }))
   }
 
   useEffect(() => {
     const result: any = CalculateCurrency(values);
     if (result) {
       setValues(prev => ({ ...prev, [result.fieldName]: result.value }))
+    } else {
+      setValues(prev => ({ ...prev, valueTo: 0, valueFrom: 0 }))
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,15 +42,22 @@ function App() {
       <h1 className="title">{title}</h1>
       <section className="changer-container">
         <div className="changer-content">
-          <SelectInput value={values.currencyFrom} list={list} onChange={(value: string) => updateValues(value, "currencyFrom")}></SelectInput>
-          <ValueInput value={values.valueFrom} onChange={(value: string) => updateValues(value, "valueFrom")}></ValueInput>
+          <div className='changer-select-input'>
+            <SelectInput value={values.currencyFrom} list={list} onChange={(value: string) => updateValues(value, "currencyFrom")}></SelectInput>
+          </div>
+          <ValueInput value={values.valueFrom} inputType="number" onChange={(value: string) => updateValues(value, "valueFrom")}></ValueInput>
         </div >
         <div className="equal-signal"> == </div>
         <div className="changer-content">
-          <SelectInput value={values.currencyTo} list={list} onChange={(value: string) => updateValues(value, "currencyTo")}></SelectInput>
-          <ValueInput value={values.valueTo} onChange={(value: string) => updateValues(value, "valueTo")}></ValueInput>
+          <div className='changer-select-input'>
+            <SelectInput value={values.currencyTo} list={list} onChange={(value: string) => updateValues(value, "currencyTo")}></SelectInput>
+          </div>
+          <ValueInput value={values.valueTo} inputType="number" onChange={(value: string) => updateValues(value, "valueTo")}></ValueInput>
         </div >
       </section >
+      {values.currencyFrom && values.currencyFrom === values.currencyTo &&
+        <div className='warning-container'>The currency can't be the same</div>
+      }
     </div >
 
   );
